@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="APP-SportHealth.API/APP-SportHealth.API.csproj" Id="f1bd03af-19ca-49b8-b193-85012f19b541" />
+  <Project Path="APP-SportHealth.Application/APP-SportHealth.Application.csproj" Id="bfbf9764-6f28-4c33-bdc1-af49cfd38168" />
+  <Project Path="APP-SportHealth.Domain/APP-SportHealth.Domain.csproj" Id="c6983c4c-28bc-4936-b643-cdf31968b891" />
+  <Project Path="APP-SportHealth.Infrastructure/APP-SportHealth.Infrastructure.csproj" Id="c529cf72-547a-4116-87bb-07ff4af9d51c" />
+</Solution>
