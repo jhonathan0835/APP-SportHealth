@@ -18,13 +18,20 @@ namespace APP_SportHealth.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserRequest request)
         {
-            await _createUserUseCase.Execute(
-                request.Name,
-                request.Email,
-                request.Password
-            );
+            try
+            {
+                await _createUserUseCase.Execute(
+                    request.Name,
+                    request.Email,
+                    request.Password
+                );
 
-            return Ok(new { message = "Usuario creado correctamente" });
+                return Ok(new { message = "Usuario creado correctamente" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

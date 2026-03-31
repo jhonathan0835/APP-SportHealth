@@ -9,7 +9,7 @@ namespace APP_SportHealth.Application.Interfaces
     {
         Task<User?> GetByEmailAsync(string email);
         Task AddAsync(User user);
-
+        Task<bool> ExistsByEmail(string email);
         Task Create(User user);
     }
 }

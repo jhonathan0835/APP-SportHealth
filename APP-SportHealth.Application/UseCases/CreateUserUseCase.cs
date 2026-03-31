@@ -17,6 +17,12 @@ namespace APP_SportHealth.Application.UseCases
 
         public async Task Execute(string name, string email, string password)
         {
+
+            // 🔥 Validar duplicado
+            var exists = await _userRepository.ExistsByEmail(email);
+            if (exists)
+                throw new Exception("El email ya está registrado");
+
             // 🔐 Hashear password
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
@@ -24,5 +30,6 @@ namespace APP_SportHealth.Application.UseCases
 
             await _userRepository.Create(user);
         }
+
     }
 }
