@@ -1,4 +1,5 @@
-﻿using APP_SportHealth.Application.Interfaces;
+﻿using APP_SportHealth.Application.Exceptions;
+using APP_SportHealth.Application.Interfaces;
 using APP_SportHealth.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace APP_SportHealth.Application.UseCases
             // 🔥 Validar duplicado
             var exists = await _userRepository.ExistsByEmail(email);
             if (exists)
-                throw new Exception("El email ya está registrado");
+                throw new BusinessException("El email ya está registrado");
 
             // 🔐 Hashear password
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);

@@ -1,4 +1,5 @@
 ﻿using APP_SportHealth.API.DTO;
+using APP_SportHealth.API.Responses;
 using APP_SportHealth.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,20 +19,18 @@ namespace APP_SportHealth.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserRequest request)
         {
-            try
-            {
-                await _createUserUseCase.Execute(
-                    request.Name,
-                    request.Email,
-                    request.Password
-                );
+            await _createUserUseCase.Execute(
+                request.Name,
+                request.Email,
+                request.Password
+            );
 
-                return Ok(new { message = "Usuario creado correctamente" });
-            }
-            catch (Exception ex)
+            return Ok(new ApiResponse<object>
             {
-                return BadRequest(new { error = ex.Message });
-            }
+                Success = true,
+                Message = "Usuario creado correctamente",
+                Data = null
+            });
         }
     }
 }

@@ -1,12 +1,12 @@
+using APP_SportHealth.API.Middlewares;
 using APP_SportHealth.Application.Interfaces;
 using APP_SportHealth.Application.UseCases;
 using APP_SportHealth.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-
+using APP_SportHealth.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using APP_SportHealth.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +25,7 @@ builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddScoped<CreateUserUseCase>();
+
 
 // 🔹 JWT
 var key = Encoding.UTF8.GetBytes("Flakito12345_super_secret_key_2026");
@@ -57,7 +58,7 @@ app.UseSwaggerUI();
 
 // 🔹 Middleware
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
