@@ -24,6 +24,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
+builder.Services.AddScoped<CreateUserUseCase>();
+
 // 🔹 JWT
 var key = Encoding.UTF8.GetBytes("Flakito12345_super_secret_key_2026");
 

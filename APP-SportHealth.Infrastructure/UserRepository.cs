@@ -27,5 +27,11 @@ namespace APP_SportHealth.Infrastructure
             return await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
+
+        public async Task Create(User user)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
