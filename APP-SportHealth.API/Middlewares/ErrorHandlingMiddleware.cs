@@ -3,16 +3,19 @@ using APP_SportHealth.Application.Exceptions;
 using FluentValidation;
 using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Hosting;
 
 namespace APP_SportHealth.API.Middlewares
 {
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IWebHostEnvironment _env;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandlingMiddleware(RequestDelegate next, IWebHostEnvironment env)
         {
             _next = next;
+            _env = env;
         }
 
         public async Task Invoke(HttpContext context)
@@ -30,23 +33,36 @@ namespace APP_SportHealth.API.Middlewares
             {
                 await HandleException(context, ex.Message, HttpStatusCode.BadRequest);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError);
+                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError, ex);
             }
         }
 
-        private async Task HandleException(HttpContext context, string message, HttpStatusCode statusCode)
+        private async Task HandleException(HttpContext context, string message, HttpStatusCode statusCode, Exception? exception = null)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;
 
+            // In development include exception details to help debugging
             var response = new ApiResponse<object>
             {
                 Success = false,
                 Message = message,
                 Data = null
             };
+
+            if (_env != null && _env.EnvironmentName == "Development" && exception != null)
+            {
+                var details = new { error = exception.Message, stackTrace = exception.StackTrace };
+                // attach details in Data for debugging (only in Development)
+                response = new ApiResponse<object>
+                {
+                    Success = false,
+                    Message = message,
+                    Data = details
+                };
+            }
 
             var json = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(json);
