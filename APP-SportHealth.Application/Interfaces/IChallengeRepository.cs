@@ -14,5 +14,7 @@ namespace APP_SportHealth.Application.Interfaces
         Task<UserChallenge?> GetUserChallenge(Guid userId, Guid challengeId);
         Task MarkUserChallengeCompleted(Guid userChallengeId);
         Task<List<UserChallenge>> ListPendingUserChallenges();
+        Task<List<UserChallenge>> ListUserChallengesByChallengeId(Guid challengeId);
+        Task<List<(UserChallenge uc, User user)>> ListUserChallengesWithUser(Guid challengeId);
     }
 }

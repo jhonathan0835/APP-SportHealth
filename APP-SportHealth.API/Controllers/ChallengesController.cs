@@ -11,12 +11,14 @@ namespace APP_SportHealth.API.Controllers
         private readonly CreateChallengeUseCase _createChallenge;
         private readonly JoinChallengeUseCase _joinChallenge;
         private readonly ListChallengesUseCase _listChallenges;
+        private readonly ListChallengeParticipantsUseCase _listParticipants;
 
-        public ChallengesController(CreateChallengeUseCase createChallenge, JoinChallengeUseCase joinChallenge, ListChallengesUseCase listChallenges)
+        public ChallengesController(CreateChallengeUseCase createChallenge, JoinChallengeUseCase joinChallenge, ListChallengesUseCase listChallenges, ListChallengeParticipantsUseCase listParticipants)
         {
             _createChallenge = createChallenge;
             _joinChallenge = joinChallenge;
             _listChallenges = listChallenges;
+            _listParticipants = listParticipants;
         }
 
         [HttpPost]
@@ -29,8 +31,11 @@ namespace APP_SportHealth.API.Controllers
         [HttpPost("{id}/join")]
         public async Task<IActionResult> Join([FromRoute] Guid id, [FromBody] JoinChallengeRequest request)
         {
-            await _joinChallenge.Execute(request.UserId, id);
-            return Ok(new { success = true });
+            var ucId = await _joinChallenge.Execute(request.UserId, id);
+            if (ucId == Guid.Empty)
+                return NotFound(new { success = false, message = "Challenge not found" });
+
+            return Ok(new { success = true, userChallengeId = ucId });
         }
 
         [HttpGet]
@@ -38,6 +43,13 @@ namespace APP_SportHealth.API.Controllers
         {
             var challenges = await _listChallenges.Execute();
             return Ok(challenges);
+        }
+
+        [HttpGet("{id}/participants")]
+        public async Task<IActionResult> Participants([FromRoute] Guid id)
+        {
+            var participants = await _listParticipants.Execute(id);
+            return Ok(participants);
         }
     }
 }

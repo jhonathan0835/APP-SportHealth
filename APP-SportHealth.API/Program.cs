@@ -57,6 +57,7 @@ builder.Services.AddScoped<EvaluateChallengesUseCase>();
 builder.Services.AddScoped<CreateActivityUseCase>();
 builder.Services.AddScoped<CreateChallengeUseCase>();
 builder.Services.AddScoped<JoinChallengeUseCase>();
+builder.Services.AddScoped<ListChallengeParticipantsUseCase>();
 
 
 // 🔹 JWT

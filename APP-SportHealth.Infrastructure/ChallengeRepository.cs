@@ -52,5 +52,22 @@ namespace APP_SportHealth.Infrastructure
         {
             return await _context.UserChallenges.Where(uc => uc.Completed == false).ToListAsync();
         }
+
+        public async Task<List<UserChallenge>> ListUserChallengesByChallengeId(Guid challengeId)
+        {
+            return await _context.UserChallenges.Where(uc => uc.ChallengeId == challengeId).ToListAsync();
+        }
+
+        public async Task<List<(UserChallenge uc, User user)>> ListUserChallengesWithUser(Guid challengeId)
+        {
+            var query = from uc in _context.UserChallenges
+                        join u in _context.Users on uc.UserId equals u.Id
+                        where uc.ChallengeId == challengeId
+                        select new { uc, u };
+
+            var list = await query.ToListAsync();
+
+            return list.Select(x => (x.uc, x.u)).ToList();
+        }
     }
 }
