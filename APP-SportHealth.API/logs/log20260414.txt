@@ -1,0 +1,51 @@
+2026-04-14 16:25:41.518 -05:00 [INF] User profile is available. Using 'C:\Users\jnata\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-14 16:25:42.148 -05:00 [INF] Now listening on: https://localhost:7242
+2026-04-14 16:25:42.163 -05:00 [INF] Now listening on: http://localhost:5182
+2026-04-14 16:25:42.351 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-14 16:25:42.358 -05:00 [INF] Hosting environment: Development
+2026-04-14 16:25:42.364 -05:00 [INF] Content root path: C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\APP-SportHealth.API
+2026-04-14 16:26:10.155 -05:00 [INF] Request starting HTTP/1.1 POST https://localhost:7242/api/users - application/json 100
+2026-04-14 16:26:10.792 -05:00 [INF] Executing endpoint 'APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API)'
+2026-04-14 16:26:10.881 -05:00 [INF] Route matched with {action = "Create", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(APP_SportHealth.API.DTO.CreateUserRequest) on controller APP_SportHealth.API.Controllers.UsersController (APP-SportHealth.API).
+2026-04-14 16:26:20.763 -05:00 [INF] Executed DbCommand (257ms) [Parameters=[@email='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM users AS u
+    WHERE u.email = @email)
+2026-04-14 16:26:24.958 -05:00 [INF] Executed DbCommand (24ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?', @p4='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO users (id, created_at, email, name, password_hash)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-14 16:26:26.325 -05:00 [INF] Creando usuario con email mathias.rodriguez1522@gmail.com
+2026-04-14 16:26:26.371 -05:00 [INF] Executing OkObjectResult, writing value of type 'APP_SportHealth.API.Responses.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-14 16:26:26.436 -05:00 [INF] Executed action APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API) in 15533.5662ms
+2026-04-14 16:26:26.450 -05:00 [INF] Executed endpoint 'APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API)'
+2026-04-14 16:26:26.491 -05:00 [INF] Request finished HTTP/1.1 POST https://localhost:7242/api/users - 200 null application/json; charset=utf-8 16355.1184ms
+2026-04-14 16:29:01.966 -05:00 [INF] User profile is available. Using 'C:\Users\jnata\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-14 16:29:02.659 -05:00 [INF] Now listening on: https://localhost:7242
+2026-04-14 16:29:02.666 -05:00 [INF] Now listening on: http://localhost:5182
+2026-04-14 16:29:02.804 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-14 16:29:02.814 -05:00 [INF] Hosting environment: Development
+2026-04-14 16:29:02.821 -05:00 [INF] Content root path: C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\APP-SportHealth.API
+2026-04-14 16:29:27.915 -05:00 [INF] Request starting HTTP/1.1 POST https://localhost:7242/api/users - application/json 100
+2026-04-14 16:29:28.156 -05:00 [INF] Executing endpoint 'APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API)'
+2026-04-14 16:29:28.213 -05:00 [INF] Route matched with {action = "Create", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(APP_SportHealth.API.DTO.CreateUserRequest) on controller APP_SportHealth.API.Controllers.UsersController (APP-SportHealth.API).
+2026-04-14 16:29:37.660 -05:00 [INF] Executed DbCommand (207ms) [Parameters=[@email='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM users AS u
+    WHERE u.email = @email)
+2026-04-14 16:29:42.486 -05:00 [INF] Executed DbCommand (22ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?', @p4='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO users (id, created_at, email, name, password_hash)
+VALUES (@p0, @p1, @p2, @p3, @p4);
+2026-04-14 16:29:43.829 -05:00 [INF] Creando usuario con email mathias.rodriguez1522@gmail.com
+2026-04-14 16:29:43.863 -05:00 [INF] Executing OkObjectResult, writing value of type 'APP_SportHealth.API.Responses.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-14 16:29:43.907 -05:00 [INF] Executed action APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API) in 15681.4118ms
+2026-04-14 16:29:43.920 -05:00 [INF] Executed endpoint 'APP_SportHealth.API.Controllers.UsersController.Create (APP-SportHealth.API)'
+2026-04-14 16:29:43.960 -05:00 [INF] Request finished HTTP/1.1 POST https://localhost:7242/api/users - 200 null application/json; charset=utf-8 16064.9275ms
+2026-04-14 16:32:48.345 -05:00 [INF] Starting application. ContentRootPath=C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\APP-SportHealth.API, LogPath=C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\APP-SportHealth.API\logs\log.txt
+2026-04-14 16:32:49.316 -05:00 [INF] Application running
+2026-04-14 16:32:49.398 -05:00 [INF] User profile is available. Using 'C:\Users\jnata\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-14 16:32:49.754 -05:00 [INF] Now listening on: http://localhost:5182
+2026-04-14 16:32:49.760 -05:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-14 16:32:49.763 -05:00 [INF] Hosting environment: Development
+2026-04-14 16:32:49.766 -05:00 [INF] Content root path: C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\APP-SportHealth.API

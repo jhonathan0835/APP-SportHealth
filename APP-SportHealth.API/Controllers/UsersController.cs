@@ -2,6 +2,7 @@
 using APP_SportHealth.API.Responses;
 using APP_SportHealth.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace APP_SportHealth.API.Controllers
 {
@@ -24,6 +25,8 @@ namespace APP_SportHealth.API.Controllers
                 request.Email,
                 request.Password
             );
+
+            Log.Information("Creando usuario con email {Email}", request.Email);
 
             return Ok(new ApiResponse<object>
             {

@@ -1,6 +1,7 @@
 ﻿using APP_SportHealth.Application.UseCases;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace APP_SportHealth.API.Controllers
 {

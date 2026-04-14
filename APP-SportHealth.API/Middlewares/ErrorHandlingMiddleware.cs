@@ -4,6 +4,7 @@ using FluentValidation;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
+using Serilog;
 
 namespace APP_SportHealth.API.Middlewares
 {
@@ -24,18 +25,21 @@ namespace APP_SportHealth.API.Middlewares
             {
                 await _next(context);
             }
-            catch (ValidationException ex) // 🔥 NUEVO
+            catch (ValidationException ex)
             {
+                Log.Warning("Error de validación: {@Errors}", ex.Errors);
                 var errors = ex.Errors.Select(e => e.ErrorMessage).ToList();
                 await HandleValidationException(context, errors);
             }
             catch (BusinessException ex)
             {
+                Log.Warning("Error de negocio: {Message}", ex.Message);
                 await HandleException(context, ex.Message, HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError, ex);
+                Log.Error(ex, "Error interno del servidor");
+                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError);
             }
         }
 

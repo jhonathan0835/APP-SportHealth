@@ -10,8 +10,25 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Serilog;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Ensure logs folder exists at the requested absolute path so Serilog can write files
+var logDir = @"C:\Users\jnata\Documents\PROYECTOS\Desarrollo de software\APP-SportHealth\logs";
+Directory.CreateDirectory(logDir);
+var logPath = Path.Combine(logDir, "log.txt");
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(logPath, rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+Log.Information("Starting application. ContentRootPath={ContentRootPath}, LogPath={LogPath}", builder.Environment.ContentRootPath, logPath);
 
 // 🔹 Servicios
 builder.Services.AddControllers();
@@ -71,4 +88,17 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+try
+{
+    Log.Information("Application running");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+    throw;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
