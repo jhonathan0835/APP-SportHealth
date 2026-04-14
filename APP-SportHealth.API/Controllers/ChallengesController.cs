@@ -39,9 +39,9 @@ namespace APP_SportHealth.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<IActionResult> List([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string orderBy = "created_at", [FromQuery] bool asc = false)
         {
-            var challenges = await _listChallenges.Execute();
+            var challenges = await _listChallenges.Execute(page, pageSize, orderBy, asc);
             return Ok(challenges);
         }
 

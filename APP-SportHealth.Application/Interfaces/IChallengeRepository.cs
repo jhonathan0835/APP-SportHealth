@@ -16,5 +16,6 @@ namespace APP_SportHealth.Application.Interfaces
         Task<List<UserChallenge>> ListPendingUserChallenges();
         Task<List<UserChallenge>> ListUserChallengesByChallengeId(Guid challengeId);
         Task<List<(UserChallenge uc, User user)>> ListUserChallengesWithUser(Guid challengeId);
+        Task<APP_SportHealth.Application.Models.PagedResult<Challenge>> ListPaged(int page, int pageSize, string orderBy, bool asc);
     }
 }

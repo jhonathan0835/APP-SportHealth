@@ -29,6 +29,37 @@ namespace APP_SportHealth.Infrastructure
             return await _context.Challenges.OrderByDescending(c => c.CreatedAt).ToListAsync();
         }
 
+        public async Task<APP_SportHealth.Application.Models.PagedResult<Challenge>> ListPaged(int page, int pageSize, string orderBy, bool asc)
+        {
+            var query = _context.Challenges.AsQueryable();
+
+            // ordering
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                if (orderBy.ToLower() == "created_at" || orderBy.ToLower() == "createdat")
+                    query = asc ? query.OrderBy(c => c.CreatedAt) : query.OrderByDescending(c => c.CreatedAt);
+                else if (orderBy.ToLower() == "name")
+                    query = asc ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+                else if (orderBy.ToLower() == "target_distance" || orderBy.ToLower() == "targetdistance")
+                    query = asc ? query.OrderBy(c => c.TargetDistance) : query.OrderByDescending(c => c.TargetDistance);
+            }
+            else
+            {
+                query = query.OrderByDescending(c => c.CreatedAt);
+            }
+
+            var total = await query.CountAsync();
+            var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new APP_SportHealth.Application.Models.PagedResult<Challenge>
+            {
+                Items = items,
+                Total = total,
+                Page = page,
+                PageSize = pageSize
+            };
+        }
+
         public async Task AddUserChallenge(UserChallenge userChallenge)
         {
             _context.UserChallenges.Add(userChallenge);

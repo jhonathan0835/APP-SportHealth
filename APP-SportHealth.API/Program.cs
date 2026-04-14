@@ -58,6 +58,7 @@ builder.Services.AddScoped<CreateActivityUseCase>();
 builder.Services.AddScoped<CreateChallengeUseCase>();
 builder.Services.AddScoped<JoinChallengeUseCase>();
 builder.Services.AddScoped<ListChallengeParticipantsUseCase>();
+// allow pageSize and page query binding
 
 
 // 🔹 JWT
