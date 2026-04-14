@@ -48,7 +48,10 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<LoginUseCase>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
-builder.Services.AddScoped<CreateUserUseCase>();
+// builder.Services.AddScoped<CreateUserUseCase>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<CreateActivityUseCase>();
+builder.Services.AddScoped<CreateActivityUseCase>();
 
 
 // 🔹 JWT

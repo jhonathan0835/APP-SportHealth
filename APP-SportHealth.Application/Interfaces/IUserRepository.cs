@@ -11,5 +11,6 @@ namespace APP_SportHealth.Application.Interfaces
         Task AddAsync(User user);
         Task<bool> ExistsByEmail(string email);
         Task Create(User user);
+        Task<User?> GetByIdAsync(Guid id);
     }
 }
