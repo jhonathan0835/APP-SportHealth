@@ -51,7 +51,12 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 // builder.Services.AddScoped<CreateUserUseCase>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<CreateActivityUseCase>();
+builder.Services.AddScoped<IChallengeRepository, ChallengeRepository>();
+builder.Services.AddScoped<ListChallengesUseCase>();
+builder.Services.AddScoped<EvaluateChallengesUseCase>();
 builder.Services.AddScoped<CreateActivityUseCase>();
+builder.Services.AddScoped<CreateChallengeUseCase>();
+builder.Services.AddScoped<JoinChallengeUseCase>();
 
 
 // 🔹 JWT

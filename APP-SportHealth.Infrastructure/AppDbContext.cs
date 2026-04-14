@@ -9,6 +9,8 @@ namespace APP_SportHealth.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityPoint> ActivityPoints { get; set; }
+        public DbSet<Challenge> Challenges { get; set; }
+        public DbSet<UserChallenge> UserChallenges { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options) { }
@@ -68,6 +70,31 @@ namespace APP_SportHealth.Infrastructure
                 entity.Property(x => x.Timestamp).HasColumnName("timestamp");
 
                 entity.HasIndex(x => x.ActivityId);
+            });
+
+            modelBuilder.Entity<Challenge>(entity =>
+            {
+                entity.ToTable("challenges");
+
+                entity.HasKey(x => x.Id);
+
+                entity.Property(x => x.Id).HasColumnName("id");
+                entity.Property(x => x.Name).HasColumnName("name");
+                entity.Property(x => x.TargetDistance).HasColumnName("target_distance");
+                entity.Property(x => x.TimeLimit).HasColumnName("time_limit");
+                entity.Property(x => x.CreatedAt).HasColumnName("created_at");
+            });
+
+            modelBuilder.Entity<UserChallenge>(entity =>
+            {
+                entity.ToTable("user_challenges");
+
+                entity.HasKey(x => x.Id);
+
+                entity.Property(x => x.Id).HasColumnName("id");
+                entity.Property(x => x.UserId).HasColumnName("user_id");
+                entity.Property(x => x.ChallengeId).HasColumnName("challenge_id");
+                entity.Property(x => x.Completed).HasColumnName("completed");
             });
         }
     }

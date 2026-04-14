@@ -39,7 +39,7 @@ namespace APP_SportHealth.API.Middlewares
             catch (Exception ex)
             {
                 Log.Error(ex, "Error interno del servidor");
-                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError);
+                await HandleException(context, "Error interno del servidor", HttpStatusCode.InternalServerError, ex);
             }
         }
 
