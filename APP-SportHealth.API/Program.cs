@@ -1,8 +1,11 @@
 using APP_SportHealth.API.Middlewares;
+using APP_SportHealth.API.Validators;
 using APP_SportHealth.Application.Interfaces;
 using APP_SportHealth.Application.UseCases;
 using APP_SportHealth.Infrastructure;
 using APP_SportHealth.Infrastructure.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -14,6 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Fluent Validation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserRequestValidator>();
 
 // 🔹 DB PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
