@@ -41,8 +41,44 @@ namespace APP_SportHealth.API.Controllers
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string orderBy = "created_at", [FromQuery] bool asc = false)
         {
+            // basic validation
+            if (pageSize <= 0) pageSize = 1;
+            if (page <= 0) page = 1;
+
             var challenges = await _listChallenges.Execute(page, pageSize, orderBy, asc);
-            return Ok(challenges);
+
+            // if requested page is out of range, return 400 Bad Request with metadata
+            if (challenges.TotalPages > 0 && page > challenges.TotalPages)
+            {
+                var error = new
+                {
+                    success = false,
+                    message = "Requested page is out of range",
+                    page = page,
+                    totalPages = challenges.TotalPages
+                };
+                return BadRequest(error);
+            }
+
+            // add pagination metadata headers
+            Response.Headers["X-Total-Count"] = challenges.Total.ToString();
+            Response.Headers["X-Total-Pages"] = challenges.TotalPages.ToString();
+            Response.Headers["X-Page"] = challenges.Page.ToString();
+            Response.Headers["X-Page-Size"] = challenges.PageSize.ToString();
+            // expose headers for CORS so browsers can read them
+            Response.Headers["Access-Control-Expose-Headers"] = "X-Total-Count,X-Total-Pages,X-Page,X-Page-Size";
+
+            // include metadata in the body
+            var body = new
+            {
+                items = challenges.Items,
+                total = challenges.Total,
+                totalPages = challenges.TotalPages,
+                page = challenges.Page,
+                pageSize = challenges.PageSize
+            };
+
+            return Ok(body);
         }
 
         [HttpGet("{id}/participants")]

@@ -58,6 +58,12 @@ builder.Services.AddScoped<CreateActivityUseCase>();
 builder.Services.AddScoped<CreateChallengeUseCase>();
 builder.Services.AddScoped<JoinChallengeUseCase>();
 builder.Services.AddScoped<ListChallengeParticipantsUseCase>();
+// bind pagination options using IOptionsMonitor<PaginationOptions> for hot reload support
+var paginationSection = builder.Configuration.GetSection("Pagination");
+builder.Services.Configure<APP_SportHealth.Application.Models.PaginationOptions>(paginationSection);
+// register pagination provider that wraps IOptionsMonitor to avoid referencing Microsoft.Extensions.Options in Application layer
+builder.Services.AddSingleton<APP_SportHealth.Application.Interfaces.IPaginationOptionsProvider, APP_SportHealth.API.Services.PaginationOptionsProvider>();
+builder.Services.AddSingleton<Microsoft.Extensions.Options.IOptionsMonitor<APP_SportHealth.Application.Models.PaginationOptions>>(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptionsMonitor<APP_SportHealth.Application.Models.PaginationOptions>>());
 // allow pageSize and page query binding
 
 
